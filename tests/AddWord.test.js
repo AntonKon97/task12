@@ -83,7 +83,7 @@ test(`calls addWord from dbUtils on adding new word`, async () => {
     .mockImplementationOnce(() => MyWords[0]);
 
   const user = userEvent.setup({
-    advanceTimers: jest.advanceTimersByTime,
+    delay: null,
   });
 
   render(
