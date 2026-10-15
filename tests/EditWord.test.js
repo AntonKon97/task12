@@ -63,9 +63,7 @@ afterEach(() => {
 test(`image picker is used correctly on EditWord screen, 
 and selected image uri is stored in the store`, async () => {
   jest.useFakeTimers();
-  const user = userEvent.setup({
-    delay: null,
-  });
+  const user = userEvent.setup();
   await act(async () => {
     store.dispatch(wordsLearningActions.addWord(MyWords[0]));
   });

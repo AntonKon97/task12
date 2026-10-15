@@ -82,9 +82,7 @@ test(`calls addWord from dbUtils on adding new word`, async () => {
     .spyOn(wordsService, "getWordInfo")
     .mockImplementationOnce(() => MyWords[0]);
 
-  const user = userEvent.setup({
-    delay: null,
-  });
+  const user = userEvent.setup();
 
   render(
     <Provider store={store}>
