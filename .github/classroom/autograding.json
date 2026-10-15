@@ -2,7 +2,7 @@
   "tests": [
     {
       "name": "Main Test",
-      "setup": "npm install",
+      "setup": "npm ci",
       "run": "CI=true npm test",
       "input": "",
       "output": "",
