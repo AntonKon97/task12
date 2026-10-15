@@ -1,9 +1,4 @@
-import {
-  render,
-  screen,
-  userEvent,
-  act,
-} from "@testing-library/react-native";
+import { render, screen, userEvent, act } from "@testing-library/react-native";
 
 import { Provider } from "react-redux";
 import store from "../store";
@@ -42,20 +37,20 @@ jest.mock("expo-image-picker", () => {
 
 jest.mock("../store/dbUtils");
 dbUtils.init.mockImplementation(
-  async () => await new Promise((r) => setTimeout(r, 0))
+  async () => await new Promise((r) => setTimeout(r, 0)),
 );
 dbUtils.addWord.mockImplementation(
-  async () => await new Promise((r) => setTimeout(r, 0))
+  async () => await new Promise((r) => setTimeout(r, 0)),
 );
 dbUtils.updateWord.mockImplementation(
-  async () => await new Promise((r) => setTimeout(r, 0))
+  async () => await new Promise((r) => setTimeout(r, 0)),
 );
 dbUtils.deleteWord.mockImplementation(
-  async () => await new Promise((r) => setTimeout(r, 0))
+  async () => await new Promise((r) => setTimeout(r, 0)),
 );
 dbUtils.getTheme.mockImplementation(
   async () =>
-    await new Promise((resolve) => setTimeout(() => resolve(false), 50))
+    await new Promise((resolve) => setTimeout(() => resolve(false), 50)),
 );
 
 constants.INITIAL_FORGETTING_SPAN = 1000 / 2;
@@ -87,14 +82,16 @@ test(`calls addWord from dbUtils on adding new word`, async () => {
     .spyOn(wordsService, "getWordInfo")
     .mockImplementationOnce(() => MyWords[0]);
 
-  const user = userEvent.setup();
+  const user = userEvent.setup({
+    advanceTimers: jest.advanceTimersByTime,
+  });
 
   render(
     <Provider store={store}>
       <AddWord
         navigation={{ setOptions: mockedSetOptions, navigate: mockedNavigate }}
       />
-    </Provider>
+    </Provider>,
   );
 
   const imagePlaceholderText = screen.getByText("No image taken yet.");
@@ -121,11 +118,11 @@ test(`calls addWord from dbUtils on adding new word`, async () => {
   });
 
   expect(store.getState().wordsLearning.words[0].image).toEqual(
-    "some_test_uri"
+    "some_test_uri",
   );
 
   expect(dbUtils.addWord).toHaveBeenCalledTimes(1);
   expect(dbUtils.addWord).toHaveBeenCalledWith(
-    store.getState().wordsLearning.words[0]
+    store.getState().wordsLearning.words[0],
   );
 }, 4000);
